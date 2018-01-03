@@ -1,8 +1,9 @@
 # coding=utf8
 """
 爬取西刺代理网站，但是发现爬取下来的都是垃圾
-想放弃。。。。。
+想放弃.......
 """
+
 import csv
 import random
 import sys
@@ -13,7 +14,7 @@ import arrow
 import requests
 from lxml import etree
 
-import setting
+import config
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -53,8 +54,6 @@ class ProxyCrawler(Baisc):
     def start(self):
         for number in range(1, setting.PAGE_NUMBER):
             url = 'http://www.xicidaili.com/wt/' + str(number)
-            print url
-            print number
             response = self.down_load(url=url)
             self.parse(response=response)
 
@@ -82,8 +81,6 @@ class ProxyCrawler(Baisc):
 
 
             if (current_time - verify_time_each).seconds > live_time_list_odd[temp]:
-                print '---2--2-2-2-', (current_time - verify_time_each).seconds
-                print '------', live_time_list_odd[temp]
                 content = [ip_list_odd[temp], port_list_odd[temp], speed_list_odd[temp], live_time_list_odd[temp]]
                 save_path = './ip.csv'
                 self.save(content=content, save_path=save_path)
@@ -104,9 +101,9 @@ class ProxyCrawler(Baisc):
         try:
             telnetlib.Telnet('121.232.145.57', port=9000, timeout=5)
         except:
-            print '0000'
+            pass
         else:
-            print '-----'
+            pass
 
 
 if __name__ == '__main__':
